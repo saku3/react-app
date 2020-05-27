@@ -5,28 +5,23 @@ import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/About';
 import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
+  const;
+
   state = {
-    todos: [
-      {
-        id: uuid(),
-        title: 'React',
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'AWS',
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'Terraform',
-        completed: false
-      }
-    ]
+    todos: []
   };
+
+  componentDidMount() {
+    console.log(process.env.REACT_APP_BACKEND_URI);
+    axios.get(`${process.env.REACT_APP_BACKEND_URI}/todos`).then(res => {
+      console.log(res.data);
+      this.setState({ todos: res.data });
+    });
+  }
 
   // Toggle Complete
   markComplete = id => {
