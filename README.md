@@ -2,4 +2,6 @@
 
 TodoList
 
-起動 docker-compose run --rm --service-ports node npm start
+起動
+
+docker-compose run --rm --service-ports node npm start

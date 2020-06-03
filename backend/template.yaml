@@ -11,6 +11,7 @@ Globals:
     Timeout: 3
   Api:
     Cors:
+      AllowMethods: "'POST,GET'"
       AllowOrigin: "'*'"
 
 Resources:
@@ -22,11 +23,21 @@ Resources:
       Runtime: python3.7
       Policies: AmazonDynamoDBFullAccess
       Events:
-        HelloWorld:
+        Todos:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /todos
             Method: get
+        AddTodos:
+          Type: Api
+          Properties:
+            Path: /todos
+            Method: post
+        OptionsTodos:
+          Type: Api
+          Properties:
+            Path: /todos
+            Method: options
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

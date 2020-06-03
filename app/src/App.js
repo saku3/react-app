@@ -4,21 +4,16 @@ import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/About';
-import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
-  const;
-
   state = {
     todos: []
   };
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_BACKEND_URI);
     axios.get(`${process.env.REACT_APP_BACKEND_URI}/todos`).then(res => {
-      console.log(res.data);
       this.setState({ todos: res.data });
     });
   }
@@ -44,12 +39,11 @@ class App extends Component {
 
   // Add Todo
   addTodo = title => {
-    const newTodo = {
-      id: uuid(),
-      title,
-      completed: false
-    };
-    this.setState({ todos: [...this.state.todos, newTodo] });
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URI}/todos`, {
+        title
+      })
+      .then(res => this.setState({ todos: [...this.state.todos, res.data] }));
   };
 
   render() {
