@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     method = event['httpMethod']
     headers = {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST,GET"
+        "Access-Control-Allow-Methods": "POST,GET, DELETE"
     }
 
     if method == 'GET':
@@ -44,6 +44,14 @@ def lambda_handler(event, context):
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Content-Type": "application/json;charset=UTF-8",
                 "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST,GET"
+                "Access-Control-Allow-Methods": "POST,GET,DELETE"
             }
+        }
+    elif method == "DELETE":
+        id = event['pathParameters']['id']
+        respidonse = table.delete_item(Key={'id': id})
+
+        return {
+            "statusCode": 200,
+            "headers": headers,
         }
