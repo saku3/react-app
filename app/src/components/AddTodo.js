@@ -8,8 +8,12 @@ export class AddTodo extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.addTodo(this.state.title);
-    this.setState({ title: '' });
+    if (this.state.title.length === 0) {
+      alert('1字以上の文字列を入力してください');
+    } else {
+      this.props.addTodo(this.state.title);
+      this.setState({ title: '' });
+    }
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -25,7 +29,14 @@ export class AddTodo extends Component {
           value={this.state.title}
           onChange={this.onChange}
         />
-        <input type="submit" value="Submit" className="btn" style={{ flex: '1' }} />
+        <input
+          type="submit"
+          value="Submit"
+          className="btn"
+          style={{
+            flex: '1'
+          }}
+        />
       </form>
     );
   }
