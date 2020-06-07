@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export class TodoItem extends Component {
   getStyle = () => {
@@ -7,6 +9,7 @@ export class TodoItem extends Component {
       background: '#f4f4f4',
       padding: '10px',
       borderBottom: '1px #ccc dotted',
+      display: 'flex',
       textDecoration: this.props.todo.completed ? 'line-through' : 'none'
     };
   };
@@ -15,13 +18,13 @@ export class TodoItem extends Component {
     const { id, title } = this.props.todo;
     return (
       <div style={this.getStyle()}>
-        <p>
+        <div style={{ flex: '10' }}>
           <input type="checkbox" style={boxStyle} onChange={this.props.markComplete.bind(this, id)} />
           {title}
-          <button style={btnStyle} onClick={this.props.delTodo.bind(this, id)}>
-            x
-          </button>
-        </p>
+        </div>
+        <Button style={btnStyle} variant="contained" color="secondary" onClick={this.props.delTodo.bind(this, id)}>
+          削除
+        </Button>
       </div>
     );
   }
@@ -34,17 +37,13 @@ TodoItem.propTypes = {
 };
 
 const btnStyle = {
-  background: '#ff0000',
-  color: '#fff',
-  border: 'none',
-  padding: '5px 9px',
-  borderRadius: '50%',
   cursor: 'pointer',
-  float: 'right'
+  float: 'right',
+  flex: '1'
 };
 
 const boxStyle = {
-  marginRight: '5px'
+  margin: '10px 5px'
 };
 
 export default TodoItem;
